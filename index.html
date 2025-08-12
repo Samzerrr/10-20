@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SASP Quiz 10-20 - Entraînement Codes Radio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Écran de démarrage -->
+        <div id="start-screen" class="screen active">
+            <div class="start-content">
+                <h1>🚔 SASP Quiz 10-20</h1>
+                <p>Entraînement aux codes radio et positions 10-20 pour les officiers du SASP</p>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="number">15</span>
+                        <span class="label">Questions</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">6</span>
+                        <span class="label">Codes radio</span>
+                    </div>
+                </div>
+                <button id="start-btn" class="btn btn-primary">Commencer l'Entraînement</button>
+            </div>
+        </div>
+
+        <!-- Écran du quiz -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <span id="question-counter" class="question-counter">Question 1/10</span>
+                </div>
+                <div class="score-container">
+                    <span id="score" class="score">Score: 0</span>
+                </div>
+            </div>
+
+            <div class="quiz-content">
+                <div class="image-container">
+                    <img id="question-image" src="" alt="Question image" class="question-image">
+                    <div class="image-overlay">
+                        <div class="timer">
+                            <span id="timer-text">30</span>s
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <h2 id="question-text" class="question-text">Chargement de la question...</h2>
+                    
+                    <div class="answers-grid">
+                        <button class="answer-btn" data-index="0">
+                            <span class="answer-letter">A</span>
+                            <span class="answer-text">Réponse A</span>
+                        </button>
+                        <button class="answer-btn" data-index="1">
+                            <span class="answer-letter">B</span>
+                            <span class="answer-text">Réponse B</span>
+                        </button>
+                        <button class="answer-btn" data-index="2">
+                            <span class="answer-letter">C</span>
+                            <span class="answer-text">Réponse C</span>
+                        </button>
+                        <button class="answer-btn" data-index="3">
+                            <span class="answer-letter">D</span>
+                            <span class="answer-text">Réponse D</span>
+                        </button>
+                        <button class="answer-btn" data-index="4">
+                            <span class="answer-letter">E</span>
+                            <span class="answer-text">Réponse E</span>
+                        </button>
+                        <button class="answer-btn" data-index="5">
+                            <span class="answer-letter">F</span>
+                            <span class="answer-text">Réponse F</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-footer">
+                <button id="next-btn" class="btn btn-secondary" disabled>Code suivant</button>
+            </div>
+        </div>
+
+        <!-- Écran de résultats -->
+        <div id="results-screen" class="screen">
+            <div class="results-content">
+                <h1>🎉 Entraînement Terminé !</h1>
+                <div class="final-score">
+                    <div class="score-circle">
+                        <span id="final-score-text">0/15</span>
+                        <span id="percentage">0%</span>
+                    </div>
+                </div>
+                <div class="score-details">
+                    <div class="detail">
+                        <span class="label">Bonnes réponses:</span>
+                        <span id="correct-answers">0</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Mauvaises réponses:</span>
+                        <span id="wrong-answers">0</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Temps moyen:</span>
+                        <span id="avg-time">0s</span>
+                    </div>
+                </div>
+                
+                <!-- Résumé des réponses -->
+                <div class="answers-summary">
+                    <h3>📋 Rapport de vos codes radio</h3>
+                    <div id="answers-list" class="answers-list">
+                        <!-- Les réponses seront ajoutées ici dynamiquement -->
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="restart-btn" class="btn btn-primary">Recommencer</button>
+                    <button id="home-btn" class="btn btn-secondary">Accueil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
