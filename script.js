@@ -82,10 +82,16 @@ function loadQuestion() {
     const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
     progressFill.style.width = `${progress}%`;
     
-    // Réinitialiser les boutons
+    // Mélanger l'ordre des réponses pour cette question
+    const shuffledAnswers = shuffleArray([...question.answers]);
+    const correctAnswerIndex = question.answers[question.correct];
+    const newCorrectIndex = shuffledAnswers.indexOf(correctAnswerIndex);
+    
+    // Réinitialiser les boutons avec les réponses mélangées
     answerBtns.forEach((btn, index) => {
         btn.className = 'answer-btn';
-        btn.querySelector('.answer-text').textContent = question.answers[index];
+        btn.querySelector('.answer-text').textContent = shuffledAnswers[index];
+        btn.dataset.correctIndex = newCorrectIndex; // Stocker le nouvel index de la bonne réponse
         btn.disabled = false;
     });
     
@@ -131,12 +137,15 @@ function selectAnswer(answerIndex) {
     const responseTime = Math.round((Date.now() - startTime) / 1000);
     answerTimes.push(responseTime);
     
+    // Récupérer le nouvel index de la bonne réponse
+    const correctIndex = parseInt(answerBtns[0].dataset.correctIndex);
+    
     // Sauvegarder la réponse de l'utilisateur
     userAnswers[currentQuestionIndex] = {
         questionIndex: currentQuestionIndex,
         selectedAnswer: answerIndex,
-        correctAnswer: quizQuestions[currentQuestionIndex].correct,
-        isCorrect: answerIndex === quizQuestions[currentQuestionIndex].correct,
+        correctAnswer: correctIndex, // Utiliser le nouvel index
+        isCorrect: answerIndex === correctIndex, // Comparer avec le nouvel index
         responseTime: responseTime,
         question: quizQuestions[currentQuestionIndex]
     };
@@ -150,7 +159,8 @@ function selectAnswer(answerIndex) {
 
 function showCorrectAnswer() {
     const question = quizQuestions[currentQuestionIndex];
-    const correctIndex = question.correct;
+    // Utiliser le nouvel index de la bonne réponse stocké dans le dataset
+    const correctIndex = parseInt(answerBtns[0].dataset.correctIndex);
     
     // Marquer la réponse correcte
     answerBtns[correctIndex].classList.add('correct');
@@ -205,9 +215,10 @@ function generateAnswersSummary() {
         const answerItem = document.createElement('div');
         answerItem.className = `answer-item ${userAnswer.isCorrect ? 'correct' : 'incorrect'}`;
         
+        // Utiliser les informations stockées dans userAnswer
         const selectedAnswerText = userAnswer.selectedAnswer >= 0 ? 
             question.answers[userAnswer.selectedAnswer] : 'Aucune réponse';
-        const correctAnswerText = question.answers[question.correct];
+        const correctAnswerText = question.answers[question.correct]; // Utiliser l'index original
         
         answerItem.innerHTML = `
             <div class="answer-number">${index + 1}</div>
